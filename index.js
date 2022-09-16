@@ -8,7 +8,7 @@ const script = async () => {
   });
 
   const files = everyFile
-    .filter((e) => /\.html$/gi.test(e.name))
+    .filter((e) => /\.html$/.test(e.name))
     .map((e) =>
       e.name === "index.html" ? "" : e.name.slice(0, e.name.length - 5)
     );
@@ -16,15 +16,21 @@ const script = async () => {
   http
     .createServer(async (req, res) => {
       res.statusCode = 200;
-      const url = req.url.slice(1);
-      res.setHeader("Content-Type", "text/html");
+      const url = req.url.slice(1, req.url.length - 5);
+      if (url !== "style") {
+        res.setHeader("Content-Type", "text/html");
 
-      if (files.includes(url)) {
-        const name = url === "" ? "index" : url;
-        const file = await fs.readFile(`./${name}.html`, "utf-8");
-        res.end(file);
+        if (files.includes(url)) {
+          const name = url === "" ? "index" : url;
+          const file = await fs.readFile(`./${name}.html`, "utf-8");
+          res.end(file);
+        } else {
+          const file = await fs.readFile(`./404.html`, "utf-8");
+          res.end(file);
+        }
       } else {
-        const file = await fs.readFile(`./404.html`, "utf-8");
+        res.setHeader("Content-Type", "text/css");
+        const file = await fs.readFile("./style.css");
         res.end(file);
       }
     })
