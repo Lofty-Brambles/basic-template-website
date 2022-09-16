@@ -1,4 +1,4 @@
-const https = require("https");
+const http = require("http");
 const fs = require("fs/promises");
 
 const script = async () => {
@@ -13,7 +13,7 @@ const script = async () => {
       e.name === "index.html" ? "" : e.name.slice(0, e.name.length - 5)
     );
 
-  https
+  http
     .createServer(async (req, res) => {
       res.statusCode = 200;
       const url = req.url.slice(1);
