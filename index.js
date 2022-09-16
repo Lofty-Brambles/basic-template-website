@@ -2,7 +2,7 @@ const https = require("https");
 const fs = require("fs/promises");
 
 try {
-  const everyFile = await fs.readdir("./", {
+  const everyFile = fs.readdir("./", {
     encoding: "utf-8",
     withFileTypes: true,
   });
@@ -21,10 +21,10 @@ try {
 
       if (files.includes(url)) {
         const name = url === "" ? "index" : url;
-        const file = await fs.readFile(`./${name}.html`, "utf-8");
+        const file = fs.readFile(`./${name}.html`, "utf-8");
         res.end(file);
       } else {
-        const file = await fs.readFile(`./404.html`, "utf-8");
+        const file = fs.readFile(`./404.html`, "utf-8");
         res.end(file);
       }
     })
