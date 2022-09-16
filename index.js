@@ -1,8 +1,8 @@
 const https = require("https");
 const fs = require("fs/promises");
 
-try {
-  const everyFile = fs.readdir("./", {
+const script = async () => {
+  const everyFile = await fs.readdir("./", {
     encoding: "utf-8",
     withFileTypes: true,
   });
@@ -21,16 +21,20 @@ try {
 
       if (files.includes(url)) {
         const name = url === "" ? "index" : url;
-        const file = fs.readFile(`./${name}.html`, "utf-8");
+        const file = await fs.readFile(`./${name}.html`, "utf-8");
         res.end(file);
       } else {
-        const file = fs.readFile(`./404.html`, "utf-8");
+        const file = await fs.readFile(`./404.html`, "utf-8");
         res.end(file);
       }
     })
     .listen(3000, () => {
       console.log("Connected.");
     });
+};
+
+try {
+  script();
 } catch (e) {
   console.log("The details of the pages weren't found!");
 }
