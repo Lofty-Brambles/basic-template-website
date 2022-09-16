@@ -1,0 +1,44 @@
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  cursor: pointer;
+  margin-top: 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid hsla(210, 18%, 87%, 1);
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+h1 > a {
+	visibility: hidden;
+	text-decoration: none;
+
+	width: 1.2rem;
+	height: 1.2rem;
+	background-image: url("./link.svg");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+h1:hover a {
+	visibility: visible;
+}
+
+p, ul {
+	margin: 0.5rem 0;
+}
+
+ul {
+	margin-left: -1rem;
+	list-style-type: square;
+}
